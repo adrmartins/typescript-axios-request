@@ -1,7 +1,19 @@
 import axios from 'axios';
+import * as https from 'https';
 
-const url = 'https://jsonplaceholder.typicode.com/todos';
+const call = async () => {
+  const httpsAgent = new https.Agent({
+    rejectUnauthorized: false,
+  });
 
-axios.get(url).then((response) => {
-  console.log(response.data);
-});
+  const { data } = await axios.get(
+    'https://jsonplaceholder.typicode.com/todos',
+    {
+      httpsAgent,
+    }
+  );
+
+  console.log(data);
+};
+
+call();
